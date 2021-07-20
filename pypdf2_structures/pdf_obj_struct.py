@@ -93,15 +93,15 @@ def write_pdf_obj_struct(struct, w_stream, write_types=False,
 	"""
 	Writes a PDF object structure in a file stream. The indentation indicates
 	which objects are contained in others. The stream's mode must be "a",
-	"a+", "r+", "w" or "w+". It the object struct is not a dictionary, a list,
-	a set or a tuple, this method will only write one line representing that
+	"a+", "r+", "w" or "w+". If argument struct is not a dictionary, a list,
+	a set or a tuple, this function will only write one line representing that
 	object.
 
 	Args:
 		struct: any object. Can be a container or not.
 		w_stream (TextIOWrapper): the file stream that will contain the
 			structure's representation
-		write_types (bool): If True, this method will write the contained
+		write_types (bool): If True, this function will write the contained
 			objects' type in the stream. Defaults to False.
 		rslv_ind_objs (bool): If True, the indirect objects found in the
 			structure will be resolved. Defaults to False. WARNING! Setting
