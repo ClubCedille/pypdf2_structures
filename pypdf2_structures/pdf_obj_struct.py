@@ -35,6 +35,12 @@ def _make_tabs(n):
 	return _TAB * n
 
 
+def _next_rec_allowed(item, rec_depth, depth_limit):
+	return depth_limit<=0\
+		or rec_depth<=depth_limit\
+		or not obj_is_a_dlst(item)
+
+
 def _obj_and_type_to_str(obj):
 	if isinstance(obj, BooleanObject):
 		return str(obj.value) + _SPACE + str(type(obj))
@@ -129,87 +135,82 @@ def write_pdf_obj_struct(struct, w_stream, write_types=False,
 		rec_depth = 0
 
 	_write_pdf_obj_struct_rec(struct, w_stream, rec_depth,
-		depth_limit, obj_str_fnc, ind_obj_fnc)
+		depth_limit, obj_str_fnc)
 
+
+resolved_objs = list()
 
 def _write_pdf_obj_struct_rec(obj_to_write, w_stream, rec_depth,
-		depth_limit, obj_str_fnc, ind_obj_fnc):
+		depth_limit, obj_str_fnc):
 	tabs = _make_tabs(rec_depth)
 	rec_depth += 1
+
+	if isinstance(obj_to_write, IndirectObject):
+		w_stream.write(tabs + repr(obj_to_write) + _NEW_LINE)
+
+		if obj_to_write in resolved_objs:
+			return
+
+		else:
+			resolved_objs.append(obj_to_write)
+			obj_to_write = obj_to_write.getObject()
 
 	if isinstance(obj_to_write, _LT):
 		length = len(obj_to_write)
 
 		for i in range(length):
-			item = ind_obj_fnc(obj_to_write[i])
+			item = obj_to_write[i]
 			line = tabs + _index_between_brackets(i)
 
-			if obj_is_a_dlst(item):
-				line += str(type(item))
-				w_stream.write(line + _NEW_LINE)
+			line += str(type(item))
+			w_stream.write(line + _NEW_LINE)
 
-				if _obj_is_a_page(item):
-					line = tabs + _PAGE_REF
-					w_stream.write(line)
+			if _obj_is_a_page(item):
+				line = tabs + _PAGE_REF
+				w_stream.write(line)
 
-				elif depth_limit<=0 or rec_depth<=depth_limit:
-					_write_pdf_obj_struct_rec(item, w_stream, rec_depth,
-						depth_limit, obj_str_fnc, ind_obj_fnc)
-
-				else:
-					w_stream.write(tabs + _UNEXPLORED_OBJS)
+			elif _next_rec_allowed(item, rec_depth, depth_limit):
+				_write_pdf_obj_struct_rec(item, w_stream, rec_depth,
+					depth_limit, obj_str_fnc)
 
 			else:
-				line += obj_str_fnc(item)
-				w_stream.write(line + _NEW_LINE)
+				w_stream.write(tabs + _UNEXPLORED_OBJS)
 
 	elif isinstance(obj_to_write, dict):
 		for key, value in obj_to_write.items():
-			value = ind_obj_fnc(value)
 			line = tabs + str(key) + _COLON_SPACE
 
-			if obj_is_a_dlst(value):
-				line += str(type(value))
-				w_stream.write(line + _NEW_LINE)
+			line += str(type(value))
+			w_stream.write(line + _NEW_LINE)
 
-				if _obj_is_a_page(value):
-					line = tabs + _PAGE_REF
-					w_stream.write(line)
+			if _obj_is_a_page(value):
+				line = tabs + _PAGE_REF
+				w_stream.write(line)
 
-				elif depth_limit<=0 or rec_depth<=depth_limit:
-					_write_pdf_obj_struct_rec(value, w_stream, rec_depth,
-						depth_limit, obj_str_fnc, ind_obj_fnc)
-
-				else:
-					w_stream.write(tabs + _UNEXPLORED_OBJS)
+			elif _next_rec_allowed(value, rec_depth, depth_limit):
+				_write_pdf_obj_struct_rec(value, w_stream, rec_depth,
+					depth_limit, obj_str_fnc)
 
 			else:
-				line += obj_str_fnc(value)
-				w_stream.write(line + _NEW_LINE)
+				w_stream.write(tabs + _UNEXPLORED_OBJS)
 
 	elif isinstance(obj_to_write, set):
 		for item in obj_to_write:
-			item = ind_obj_fnc(item)
 			line = tabs
 
-			if obj_is_a_dlst(item):
-				line += str(type(item))
-				w_stream.write(line + _NEW_LINE)
+			line += str(type(item))
+			w_stream.write(line + _NEW_LINE)
 
-				if _obj_is_a_page(item):
-					line = tabs + _PAGE_REF
-					w_stream.write(line)
+			if _obj_is_a_page(item):
+				line = tabs + _PAGE_REF
+				w_stream.write(line)
 
-				elif depth_limit<=0 or rec_depth<=depth_limit:
-					_write_pdf_obj_struct_rec(item, w_stream, rec_depth,
-						depth_limit, obj_str_fnc, ind_obj_fnc)
-
-				else:
-					w_stream.write(tabs + _UNEXPLORED_OBJS)
+			elif _next_rec_allowed(item, rec_depth, depth_limit):
+				_write_pdf_obj_struct_rec(item, w_stream, rec_depth,
+					depth_limit, obj_str_fnc)
 
 			else:
-				line += obj_str_fnc(item)
-				w_stream.write(line + _NEW_LINE)
+				w_stream.write(tabs + _UNEXPLORED_OBJS)
 
 	else:
 		line = tabs + obj_str_fnc(obj_to_write)
