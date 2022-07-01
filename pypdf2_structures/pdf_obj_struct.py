@@ -82,20 +82,7 @@ def _obj_is_a_page(obj):
 		return False
 
 
-def _rslv_pdf_ind_object(obj):
-	if isinstance(obj, IndirectObject):
-		return obj.getObject()
-
-	else:
-		return obj
-
-
-def _return_arg(obj):
-	return obj
-
-
-def write_pdf_obj_struct(struct, w_stream, write_types=False,
-		rslv_ind_objs=False, depth_limit=0):
+def write_pdf_obj_struct(struct, w_stream, write_types=False,depth_limit=0):
 	"""
 	Writes a PDF object structure in a file stream. The indentation indicates
 	which objects are contained in others. The stream's mode must be "a",
@@ -109,10 +96,6 @@ def write_pdf_obj_struct(struct, w_stream, write_types=False,
 			structure's representation
 		write_types (bool): If True, this function will write the contained
 			objects' type in the stream. Defaults to False.
-		rslv_ind_objs (bool): If True, the indirect objects found in the
-			structure will be resolved. Defaults to False. WARNING! Setting
-			this parameter to True can make the function exceed the maximum
-			recursion depth.
 		depth_limit (int): a limit to the recursion depth. If it is set to 0
 			or less, no limit is enforced. Defaults to 0.
 
@@ -125,7 +108,6 @@ def write_pdf_obj_struct(struct, w_stream, write_types=False,
 			+ "\"a\", \"a+\", \"r+\", \"w\" or \"w+\".")
 
 	obj_str_fnc = _obj_and_type_to_str if write_types else str
-	ind_obj_fnc = _rslv_pdf_ind_object if rslv_ind_objs else _return_arg
 
 	if obj_is_a_dlst(struct):
 		w_stream.write(str(type(struct)) + _NEW_LINE)
