@@ -82,7 +82,7 @@ def _obj_is_a_page(obj):
 		return False
 
 
-def write_pdf_obj_struct(struct, w_stream, write_types=False,depth_limit=0):
+def write_pdf_obj_struct(struct, w_stream, write_types=False, depth_limit=0):
 	"""
 	Writes a PDF object structure in a file stream. The indentation indicates
 	which objects are contained in others. The stream's mode must be "a",
@@ -120,6 +120,7 @@ def write_pdf_obj_struct(struct, w_stream, write_types=False,depth_limit=0):
 		depth_limit, obj_str_fnc)
 
 
+# Global variable for recursive function _write_pdf_obj_struct_rec
 resolved_objs = list()
 
 def _write_pdf_obj_struct_rec(obj_to_write, w_stream, rec_depth,
