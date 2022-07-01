@@ -112,7 +112,7 @@ def write_pdf_obj_struct(struct, w_stream, write_types=False,
 
 	Raises:
 		RecursionError: if this function exceeds the maximum recursion depth
-		ValueError: if the stream's mode in incorrect
+		ValueError: if the stream's mode is incorrect
 	"""
 	if w_stream.mode not in _STREAM_WRITING_MODES:
 		raise ValueError("The stream's mode must be "
