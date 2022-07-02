@@ -8,7 +8,7 @@ def _write_field_objs_in_stream(pdf_path, field_dict, w_stream, depth_limit):
 
 	for mapping_name, field in field_dict.items():
 		w_stream.write("\n" + mapping_name + "\n")
-		write_pdf_obj_struct(field, w_stream, True, depth_limit)
+		write_pdf_obj_struct(field, w_stream, depth_limit)
 
 
 if __name__ == "__main__":
