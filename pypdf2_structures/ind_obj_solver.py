@@ -11,8 +11,8 @@ def _make_ind_obj_id(ind_obj):
 
 	Returns:
 		tuple:
-			[0]: ind_obj.idnum (int)
-			[1]: ind_obj.generation (int)
+			[0] (int): ind_obj.idnum
+			[1] (int): ind_obj.generation
 	"""
 	return (ind_obj.idnum, ind_obj.generation)
 
@@ -47,13 +47,32 @@ class _IndObjRecord:
 
 
 class IndObjSolver:
+	"""
+	This class resolves PyPDF2 IndirectObject instances and keeps a record of
+	them. The objects are marked as resolved or not.
+	"""
 
 	def __init__(self):
+		"""
+		The constructor of IndObjSolver creates an empty record of resolved
+		objects.
+		"""
 		# Keys: ID tuples
 		# Values: _IndObjRecord instances
 		self._ind_obj_records = dict()
 
 	def get_resolved_type(self, ind_obj):
+		"""
+		Resolves an indirect objet to determine its type. If the object is
+		unknown to this instance, it is recorded, but in either case, it is not
+		marked as resolved.
+
+		Args:
+			ind_obj (PyPDF2.generic.IndirectObject): an indirect object
+
+		Returns:
+			type: the resolved type of ind_obj
+		"""
 		ind_obj_id = _make_ind_obj_id(ind_obj)
 		record = self._ind_obj_records.get(ind_obj_id)
 
@@ -77,6 +96,20 @@ class IndObjSolver:
 		return isinstance(obj, IndirectObject)
 
 	def solve_ind_obj(self, ind_obj):
+		"""
+		Resolves an indirect object to provide the resolved object. If the
+		object is unknown to this instance, it is recorded. In either case,
+		the object is marked as resolved.
+
+		Args:
+			ind_obj (PyPDF2.generic.IndirectObject): an indirect object
+
+		Returns:
+			tuple:
+				[0] (object): the resolved object
+				[1] (bool): True if the object has already been resolved, False
+					otherwise
+		"""
 		ind_obj_id = _make_ind_obj_id(ind_obj)
 		record = self._ind_obj_records.get(ind_obj_id)
 		was_solved = True
