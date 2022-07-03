@@ -11,7 +11,7 @@ def _write_field_objs_in_stream(pdf_path, field_dict, w_stream, depth_limit):
 	w_stream.write("Objects in the fields of " + str(pdf_path) + "\n")
 
 	for mapping_name, field in field_dict.items():
-		w_stream.write("\n" + mapping_name + "\n")
+		w_stream.write("\nField " + mapping_name + "\n")
 		write_pdf_obj_struct(field, w_stream, depth_limit)
 
 
