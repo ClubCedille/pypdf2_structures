@@ -11,7 +11,7 @@ _OUTPUT_EXTENSION_IN_LIST = [_OUTPUT_EXTENSION]
 
 class StructureType(Enum):
 	"""
-	This enumeration contains the types of PDF object structure that this
+	This enumeration contains the types of PyPDF2 object structure that this
 	package can explore: PDF fields and PDF pages.
 	"""
 	FIELD = 0

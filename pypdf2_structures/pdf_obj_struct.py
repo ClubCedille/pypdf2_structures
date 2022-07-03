@@ -1,8 +1,8 @@
 """
-This module allows to write a PDF object structure in a file stream. An object
-structure consists of containers (dictionaries, lists, sets and tuples)
-embedded in one another and other objects. This module also works on
-structures that do not contain PDF objects.
+This module allows to write a PyPDF2 object structure in a file stream. An
+object structure consists of containers (dictionaries, lists, sets and tuples)
+embedded in one another and other objects. This module also works on structures
+that do not contain PyPDF2 objects.
 """
 
 
