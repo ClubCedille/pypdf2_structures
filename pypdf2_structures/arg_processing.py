@@ -1,8 +1,6 @@
 from argparse import ArgumentParser
 from enum import Enum
 from pathlib import Path
-from pdf_obj_struct import write_pdf_obj_struct
-from PyPDF2 import PdfFileReader
 
 
 _INPUT_EXTENSION = ".pdf"
@@ -13,7 +11,7 @@ _OUTPUT_EXTENSION_IN_LIST = [_OUTPUT_EXTENSION]
 
 class StructureType(Enum):
 	"""
-	This enumeration contains the types of PDF object structure that this
+	This enumeration contains the types of PyPDF2 object structure that this
 	package can explore: PDF fields and PDF pages.
 	"""
 	FIELD = 0
@@ -57,8 +55,7 @@ def make_parser(struct_type):
 
 	parser.add_argument("-d", "--depth", type=int, default=0,
 		help="Limit of the recursion depth that the algorithm can reach. If 0\
-		or less, no limit is set, and PyPDF2's indirect objects will not be\
-		resolved. Defaults to 0.")
+		or less, no limit is set. Defaults to 0.")
 
 	parser.add_argument("-o", "--output", type=Path,
 		help="Path to the .txt output file. If set to \"console\", the object\
@@ -89,8 +86,8 @@ def process_arguments(args, struct_type):
 			[2]: (pathlib.Path) the path to the output file
 
 	Raises:
-		ValueError: if the path to the file to explore or struct_type is
-			incorrect
+		ValueError: if the path to the file to explore does not exist or does
+		not have extension .pdf.
 	"""
 	if struct_type == StructureType.FIELD:
 		o_file_stem_end = "_field_objects"
@@ -123,8 +120,8 @@ def process_arguments(args, struct_type):
 			output_path = None
 
 	elif output_path.is_dir():
-		output_path = output_path/\
-			_make_default_output_file_name(input_path, o_file_stem_end)
+		output_path = output_path/_make_default_output_file_name(
+			input_path, o_file_stem_end)
 
 	elif output_path.suffixes != _OUTPUT_EXTENSION_IN_LIST:
 		output_path = output_path.with_suffix(_OUTPUT_EXTENSION)

@@ -1,8 +1,10 @@
-from argparse import ArgumentParser
-from arg_processing import make_parser, process_arguments, StructureType
-from pathlib import Path
-from pdf_obj_struct import write_pdf_obj_struct
 from PyPDF2 import PdfFileReader
+
+from arg_processing import\
+	make_parser,\
+	process_arguments,\
+	StructureType
+from pdf_obj_struct import write_pdf_obj_struct
 
 
 def _write_page_objs_in_stream(pdf_path, pages, w_stream, depth_limit):
@@ -11,7 +13,7 @@ def _write_page_objs_in_stream(pdf_path, pages, w_stream, depth_limit):
 	for i in range(len(pages)):
 		page = pages[i]
 		w_stream.write("\n\nPAGE " + str(i) + "\n")
-		write_pdf_obj_struct(page, w_stream, True, depth_limit>0, depth_limit)
+		write_pdf_obj_struct(page, w_stream, depth_limit)
 
 
 if __name__ == "__main__":
