@@ -1,6 +1,10 @@
-from arg_processing import make_parser, process_arguments, StructureType
-from pdf_obj_struct import write_pdf_obj_struct
 from PyPDF2 import PdfFileReader
+
+from arg_processing import\
+	make_parser,\
+	process_arguments,\
+	StructureType
+from pdf_obj_struct import write_pdf_obj_struct
 
 
 def _write_page_objs_in_stream(pdf_path, pages, w_stream, depth_limit):
