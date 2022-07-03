@@ -10,7 +10,7 @@ from PyPDF2.generic import\
 	BooleanObject,\
 	DictionaryObject
 
-from .ind_obj_solver import IndObjSolver
+from ind_obj_solver import IndObjSolver
 
 
 _DLST = (dict, list, set, tuple)
