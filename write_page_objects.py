@@ -4,7 +4,7 @@ from arg_processing import\
 	make_parser,\
 	process_arguments,\
 	StructureType
-from pdf_obj_struct import write_pdf_obj_struct
+from pypdf2_structures import write_pdf_obj_struct
 
 
 def _write_page_objs_in_stream(pdf_path, pages, w_stream, depth_limit):
@@ -12,7 +12,7 @@ def _write_page_objs_in_stream(pdf_path, pages, w_stream, depth_limit):
 
 	for i in range(len(pages)):
 		page = pages[i]
-		w_stream.write("\n\nPAGE " + str(i) + "\n")
+		w_stream.write("\n\nPage " + str(i) + "\n")
 		write_pdf_obj_struct(page, w_stream, depth_limit)
 
 
@@ -37,5 +37,5 @@ if __name__ == "__main__":
 
 	else:
 		with output_path.open(mode="w", encoding="utf8") as output_stream:
-			_write_page_objs_in_stream(input_path, pages,
-				output_stream, depth_limit)
+			_write_page_objs_in_stream(
+				input_path, pages, output_stream, depth_limit)

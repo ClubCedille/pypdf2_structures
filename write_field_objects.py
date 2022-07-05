@@ -4,7 +4,7 @@ from arg_processing import\
 	make_parser,\
 	process_arguments,\
 	StructureType
-from pdf_obj_struct import write_pdf_obj_struct
+from pypdf2_structures import write_pdf_obj_struct
 
 
 def _write_field_objs_in_stream(pdf_path, field_dict, w_stream, depth_limit):
@@ -36,5 +36,5 @@ if __name__ == "__main__":
 
 	else:
 		with output_path.open(mode="w", encoding="utf8") as output_stream:
-			_write_field_objs_in_stream(input_path, fields,
-				output_stream, depth_limit)
+			_write_field_objs_in_stream(
+				input_path, fields, output_stream, depth_limit)
