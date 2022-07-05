@@ -12,7 +12,7 @@ def _write_page_objs_in_stream(pdf_path, pages, w_stream, depth_limit):
 
 	for i in range(len(pages)):
 		page = pages[i]
-		w_stream.write("\n\nPAGE " + str(i) + "\n")
+		w_stream.write("\n\nPage " + str(i) + "\n")
 		write_pdf_obj_struct(page, w_stream, depth_limit)
 
 
