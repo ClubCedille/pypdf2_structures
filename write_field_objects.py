@@ -1,6 +1,6 @@
 from PyPDF2 import PdfFileReader
 
-from pypdf2_structures.arg_processing import\
+from arg_processing import\
 	make_parser,\
 	process_arguments,\
 	StructureType
