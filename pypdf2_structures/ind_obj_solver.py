@@ -54,7 +54,7 @@ class IndObjSolver:
 
 	def __init__(self):
 		"""
-		The constructor of IndObjSolver creates an empty record of resolved
+		The constructor of IndObjSolver creates an empty record of indirect
 		objects.
 		"""
 		# Keys: ID tuples
