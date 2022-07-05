@@ -36,5 +36,5 @@ if __name__ == "__main__":
 
 	else:
 		with output_path.open(mode="w", encoding="utf8") as output_stream:
-			_write_field_objs_in_stream(input_path, fields,
-				output_stream, depth_limit)
+			_write_field_objs_in_stream(
+				input_path, fields, output_stream, depth_limit)
