@@ -14,9 +14,9 @@ pip install -r requirements.txt
 
 ### La fonction `write_pdf_obj_struct`
 
-Elle prend en paramètre une structure d'objets et un flux d'écriture de fichier
-(mode `a`, `a+`, `r+`, `w` ou `w+`) pour produire une représentation textuelle
-des objets. Un troisième paramètre permet de limiter la profondeur de
+Elle prend comme arguments une structure d'objets et un flux d'écriture de
+fichier (mode `a`, `a+`, `r+`, `w` ou `w+`) pour produire une représentation
+textuelle des objets. Un troisième paramètre permet de limiter la profondeur de
 l'exploration de la structure. Si la profondeur limite est atteinte, les objets
 au-delà ne seront pas inclus dans le fichier de sortie.
 
