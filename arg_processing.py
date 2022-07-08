@@ -47,7 +47,7 @@ def make_parser(struct_type):
 		struct_word = "pages"
 
 	parser = ArgumentParser(description=
-		"This script explores recursively the object structure in a PDF\
+		"This script recursively explores the object structure in a PDF\
 		file's " + struct_word + " and records it in a .txt file.")
 
 	parser.add_argument("-f", "--file", type=Path, required=True,
