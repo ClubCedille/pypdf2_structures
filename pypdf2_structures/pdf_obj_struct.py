@@ -47,10 +47,10 @@ def _make_tabs(n):
 	return _TAB * n
 
 
-def _next_rec_allowed(item, rec_depth, depth_limit):
+def _next_rec_allowed(item_is_dlst, rec_depth, depth_limit):
 	return depth_limit <= 0\
 		or rec_depth < depth_limit\
-		or not obj_is_a_dlst(item)
+		or not item_is_dlst
 
 
 def _obj_and_type_to_str(obj):
@@ -130,6 +130,7 @@ def write_pdf_obj_struct(struct, w_stream, depth_limit=0):
 
 def _write_pdf_obj_struct_rec(obj_to_write, w_stream, rec_depth,
 		depth_limit, ind_obj_solver):
+	w_stream.write(str(rec_depth))
 	tabs = _make_tabs(rec_depth)
 	rec_depth += 1
 
@@ -158,7 +159,8 @@ def _write_pdf_obj_struct_rec(obj_to_write, w_stream, rec_depth,
 				line = tabs + _PAGE_REF
 				w_stream.write(line)
 
-			elif _next_rec_allowed(item, rec_depth, depth_limit):
+			elif _next_rec_allowed(
+					issubclass(item_type, _DLST), rec_depth, depth_limit):
 				_write_pdf_obj_struct_rec(item, w_stream, rec_depth,
 					depth_limit, ind_obj_solver)
 
@@ -178,7 +180,8 @@ def _write_pdf_obj_struct_rec(obj_to_write, w_stream, rec_depth,
 				line = tabs + _PAGE_REF
 				w_stream.write(line)
 
-			elif _next_rec_allowed(value, rec_depth, depth_limit):
+			elif _next_rec_allowed(
+					issubclass(value_type, _DLST), rec_depth, depth_limit):
 				_write_pdf_obj_struct_rec(value, w_stream, rec_depth,
 					depth_limit, ind_obj_solver)
 
@@ -198,7 +201,8 @@ def _write_pdf_obj_struct_rec(obj_to_write, w_stream, rec_depth,
 				line = tabs + _PAGE_REF
 				w_stream.write(line)
 
-			elif _next_rec_allowed(item, rec_depth, depth_limit):
+			elif _next_rec_allowed(
+					issubclass(item_type, _DLST), rec_depth, depth_limit):
 				_write_pdf_obj_struct_rec(item, w_stream, rec_depth,
 					depth_limit, ind_obj_solver)
 
