@@ -17,8 +17,10 @@ pip install -r requirements.txt
 Elle prend comme arguments une structure d'objets et un flux d'écriture de
 fichier (mode `a`, `a+`, `r+`, `w` ou `w+`) pour produire une représentation
 textuelle des objets. Un troisième paramètre permet de limiter la profondeur de
-l'exploration de la structure. Si la profondeur limite est atteinte, les objets
-au-delà ne seront pas inclus dans le fichier de sortie.
+l'exploration de la structure. Quand la profondeur limite est atteinte, les
+objets au-delà ne sont pas inclus dans le fichier de sortie. Toutefois, si
+l'objet au niveau de profondeur suivant n'est ni un dictionnaire, une liste, un
+*set* ni un tuple, il est inscrit dans le flux même si la limite est atteinte.
 
 `PyPDF2` utilise des objets indirects (type `IndirectObject`) comme références
 à des objets qui n'ont pas encore été chargés en mémoire. La fonction
@@ -56,9 +58,10 @@ pip install -r requirements.txt
 
 It takes an object structure and a file writing stream (mode `a`, `a+`, `r+`,
 `w` ou `w+`) as arguments to make a text representation of the objets. A third
-parameter allows to limit the depth of the structure's exploration. If the
-depth limit is reached, the objects beyond will not be included in the output
-file.
+parameter allows to limit the depth of the structure's exploration. When the
+depth limit is reached, the objects beyond are not included in the output file.
+However, if the object at the next depth level is not a dictionary, a list, a
+set or a tuple, it is written in the stream even though the limit is reached.
 
 `PyPDF2` uses indirect objects (type `IndirectObject`) as references to objects
 that have not been loaded in memory. Function `write_pdf_obj_struct`resolves
