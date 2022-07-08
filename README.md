@@ -3,8 +3,8 @@
 ## Français
 
 Dans la bibliothèque [PyPDF2](https://pypi.org/project/PyPDF2/), les pages et
-les champs des fichiers PDF sont d'immenses structures d'objets. Ce dépôt permet
-d'écrire dans des fichers texte une représentation de ces structures.
+les champs des fichiers PDF sont des structures d'objets complexes. Ce dépôt
+permet d'écrire dans des fichers texte une représentation de ces structures.
 
 Utilisez cette commande pour installer les dépendances du dépôt.
 
@@ -43,7 +43,7 @@ python write_page_objects.py -h
 ## English
 
 In library [PyPDF2](https://pypi.org/project/PyPDF2/), the pages and fields of
-PDF files are immense object structures. This repository allows to write a
+PDF files are complex object structures. This repository allows to write a
 representation of those structures in text files.
 
 Use this command to install the repository's dependencies.
