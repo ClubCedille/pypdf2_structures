@@ -48,8 +48,8 @@ def _make_tabs(n):
 
 
 def _next_rec_allowed(item, rec_depth, depth_limit):
-	return depth_limit<=0\
-		or rec_depth<=depth_limit\
+	return depth_limit <= 0\
+		or rec_depth < depth_limit\
 		or not obj_is_a_dlst(item)
 
 
