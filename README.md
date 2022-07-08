@@ -2,7 +2,7 @@
 
 ## Français
 
-Dans la bibliothèque [PyPDF2](https://github.com/mstamy2/PyPDF2), les pages et
+Dans la bibliothèque [PyPDF2](https://pypi.org/project/PyPDF2/), les pages et
 les champs des fichiers PDF sont d'immenses structures d'objets. Ce dépôt permet
 d'écrire dans des fichers texte une représentation de ces structures.
 
@@ -42,7 +42,7 @@ python write_page_objects.py -h
 
 ## English
 
-In library [PyPDF2](https://github.com/mstamy2/PyPDF2), the pages and fields of
+In library [PyPDF2](https://pypi.org/project/PyPDF2/), the pages and fields of
 PDF files are immense object structures. This repository allows to write a
 representation of those structures in text files.
 
