@@ -3,8 +3,11 @@
 ## Français
 
 Dans la bibliothèque [PyPDF2](https://pypi.org/project/PyPDF2/), les pages et
-les champs des fichiers PDF sont des structures d'objets complexes. Ce dépôt
-permet d'écrire dans des fichers texte une représentation de ces structures.
+les champs des fichiers PDF sont des structures d'objets complexes. Une
+structure d'objets consiste en des conteneurs (dictionaires, listes, *sets* et
+tuples) comportant d'autres conteneurs et d'autres types d'objets. Ce dépôt
+permet d'écrire dans des fichers texte une représentation de ces structures,
+même celles qui ne contiennent pas d'objets de `PyPDF2`.
 
 Utilisez cette commande pour installer les dépendances du dépôt.
 
@@ -17,10 +20,10 @@ pip install -r requirements.txt
 Elle prend comme arguments une structure d'objets et un flux d'écriture de
 fichier (mode `a`, `a+`, `r+`, `w` ou `w+`) pour produire une représentation
 textuelle des objets. Un troisième paramètre permet de limiter la profondeur de
-l'exploration de la structure. Quand la profondeur limite est atteinte, les
-objets au-delà ne sont pas inclus dans le fichier de sortie. Toutefois, si
-l'objet au niveau de profondeur suivant n'est ni un dictionnaire, une liste, un
-*set* ni un tuple, il est inscrit dans le flux même si la limite est atteinte.
+l'exploration de la structure. Les objets au-delà de la profondeur limite ne
+sont pas inclus dans le fichier de sortie et sont représentés par `[...]`. Il y
+a une exception toutefois: si l'objet au niveau de profondeur juste après la
+limite n'est pas un conteneur, il est inscrit dans le flux.
 
 `PyPDF2` utilise des objets indirects (type `IndirectObject`) comme références
 à des objets qui n'ont pas encore été chargés en mémoire. La fonction
@@ -45,8 +48,11 @@ python write_page_objects.py -h
 ## English
 
 In library [PyPDF2](https://pypi.org/project/PyPDF2/), the pages and fields of
-PDF files are complex object structures. This repository allows to write a
-representation of those structures in text files.
+PDF files are complex object structures. An object structure consists of
+containers (dictionaries, lists, sets and tuples) that hold other containers
+and other object types. This repository allows to write a representation of
+those structures in text files, even those that do not contain `PyPDF2`
+objects.
 
 Use this command to install the repository's dependencies.
 
@@ -58,10 +64,10 @@ pip install -r requirements.txt
 
 It takes an object structure and a file writing stream (mode `a`, `a+`, `r+`,
 `w` ou `w+`) as arguments to make a text representation of the objets. A third
-parameter allows to limit the depth of the structure's exploration. When the
-depth limit is reached, the objects beyond are not included in the output file.
-However, if the object at the next depth level is not a dictionary, a list, a
-set or a tuple, it is written in the stream even though the limit is reached.
+parameter allows to limit the depth of the structure's exploration. The objects
+beyond the depth limit are not included in the output file and are represented
+by `[...]`. There is an exception though: if the objet at the depth level just
+after the limit is not a container, it is written in the stream.
 
 `PyPDF2` uses indirect objects (type `IndirectObject`) as references to objects
 that have not been loaded in memory. Function `write_pdf_obj_struct`resolves
