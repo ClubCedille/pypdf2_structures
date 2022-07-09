@@ -1,8 +1,8 @@
 """
 This module allows to write a PyPDF2 object structure in a file stream. An
 object structure consists of containers (dictionaries, lists, sets and tuples)
-embedded in one another and other objects. This module also works on structures
-that do not contain PyPDF2 objects.
+that hold other containers and other object types. This module also works on
+structures that do not contain PyPDF2 objects.
 """
 
 
@@ -47,10 +47,10 @@ def _make_tabs(n):
 	return _TAB * n
 
 
-def _next_rec_allowed(item, rec_depth, depth_limit):
-	return depth_limit<=0\
-		or rec_depth<=depth_limit\
-		or not obj_is_a_dlst(item)
+def _next_rec_allowed(item_is_dlst, rec_depth, depth_limit):
+	return depth_limit <= 0\
+		or rec_depth <= depth_limit\
+		or not item_is_dlst
 
 
 def _obj_and_type_to_str(obj):
@@ -98,9 +98,12 @@ def write_pdf_obj_struct(struct, w_stream, depth_limit=0):
 	"""
 	Writes a PDF object structure in a file stream. The indentation indicates
 	which objects are contained in others. The stream's mode must be "a",
-	"a+", "r+", "w" or "w+". If argument struct is not a dictionary, a list,
-	a set or a tuple, this function will only write one line representing that
-	object.
+	"a+", "r+", "w" or "w+". If argument struct is not a container, this
+	function will only write one line representing that object. It is possible
+	to limit the depth of the structure's exploration. The objects beyond the
+	depth limit are not included in the stream and are represented by "[...]".
+	There is an exception though: if the objet at the depth level just after
+	the limit is not a container, it is written in the stream.
 
 	Args:
 		struct: any object. Can be a container or not.
@@ -158,7 +161,8 @@ def _write_pdf_obj_struct_rec(obj_to_write, w_stream, rec_depth,
 				line = tabs + _PAGE_REF
 				w_stream.write(line)
 
-			elif _next_rec_allowed(item, rec_depth, depth_limit):
+			elif _next_rec_allowed(
+					issubclass(item_type, _DLST), rec_depth, depth_limit):
 				_write_pdf_obj_struct_rec(item, w_stream, rec_depth,
 					depth_limit, ind_obj_solver)
 
@@ -178,7 +182,8 @@ def _write_pdf_obj_struct_rec(obj_to_write, w_stream, rec_depth,
 				line = tabs + _PAGE_REF
 				w_stream.write(line)
 
-			elif _next_rec_allowed(value, rec_depth, depth_limit):
+			elif _next_rec_allowed(
+					issubclass(value_type, _DLST), rec_depth, depth_limit):
 				_write_pdf_obj_struct_rec(value, w_stream, rec_depth,
 					depth_limit, ind_obj_solver)
 
@@ -198,7 +203,8 @@ def _write_pdf_obj_struct_rec(obj_to_write, w_stream, rec_depth,
 				line = tabs + _PAGE_REF
 				w_stream.write(line)
 
-			elif _next_rec_allowed(item, rec_depth, depth_limit):
+			elif _next_rec_allowed(
+					issubclass(item_type, _DLST), rec_depth, depth_limit):
 				_write_pdf_obj_struct_rec(item, w_stream, rec_depth,
 					depth_limit, ind_obj_solver)
 
