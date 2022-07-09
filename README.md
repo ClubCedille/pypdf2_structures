@@ -19,8 +19,8 @@ pip install -r requirements.txt
 
 Elle prend comme arguments une structure d'objets et un flux d'écriture de
 fichier (mode `a`, `a+`, `r+`, `w` ou `w+`) pour produire une représentation
-textuelle de la structure. L'indentation indique quels objets sont contenus
-dans les autres. Un troisième paramètre permet de limiter la profondeur de
+textuelle de la structure. L'indentation indique quels objets en contiennent
+d'autres. Un troisième paramètre permet de limiter la profondeur de
 l'exploration de la structure. Les objets au-delà de la profondeur limite ne
 sont pas inclus dans le flux et sont représentés par `[...]`. Il y a une
 exception toutefois: si l'objet au niveau de profondeur juste après la limite
@@ -65,7 +65,7 @@ pip install -r requirements.txt
 
 It takes an object structure and a file writing stream (mode `a`, `a+`, `r+`,
 `w` ou `w+`) as arguments to make a text representation of the structure. The
-indentation indicates which objects are contained in others. A third parameter
+indentation indicates which objects contain other ones. A third parameter
 allows to limit the depth of the structure's exploration. The objects beyond
 the depth limit are not included in the stream and are represented by `[...]`.
 There is an exception though: if the objet at the depth level just after the
