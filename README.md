@@ -19,11 +19,12 @@ pip install -r requirements.txt
 
 Elle prend comme arguments une structure d'objets et un flux d'écriture de
 fichier (mode `a`, `a+`, `r+`, `w` ou `w+`) pour produire une représentation
-textuelle des objets. Un troisième paramètre permet de limiter la profondeur de
+textuelle de la structure. L'indentation indique quels objets sont contenus
+dans les autres. Un troisième paramètre permet de limiter la profondeur de
 l'exploration de la structure. Les objets au-delà de la profondeur limite ne
-sont pas inclus dans le fichier de sortie et sont représentés par `[...]`. Il y
-a une exception toutefois: si l'objet au niveau de profondeur juste après la
-limite n'est pas un conteneur, il est inscrit dans le flux.
+sont pas inclus dans le flux et sont représentés par `[...]`. Il y a une
+exception toutefois: si l'objet au niveau de profondeur juste après la limite
+n'est pas un conteneur, il est inscrit dans le flux.
 
 `PyPDF2` utilise des objets indirects (type `IndirectObject`) comme références
 à des objets qui n'ont pas encore été chargés en mémoire. La fonction
@@ -63,11 +64,12 @@ pip install -r requirements.txt
 ### Function `write_pdf_obj_struct`
 
 It takes an object structure and a file writing stream (mode `a`, `a+`, `r+`,
-`w` ou `w+`) as arguments to make a text representation of the objets. A third
-parameter allows to limit the depth of the structure's exploration. The objects
-beyond the depth limit are not included in the output file and are represented
-by `[...]`. There is an exception though: if the objet at the depth level just
-after the limit is not a container, it is written in the stream.
+`w` ou `w+`) as arguments to make a text representation of the structure. The
+indentation indicates which objects are contained in others. A third parameter
+allows to limit the depth of the structure's exploration. The objects beyond
+the depth limit are not included in the stream and are represented by `[...]`.
+There is an exception though: if the objet at the depth level just after the
+limit is not a container, it is written in the stream.
 
 `PyPDF2` uses indirect objects (type `IndirectObject`) as references to objects
 that have not been loaded in memory. Function `write_pdf_obj_struct`resolves
