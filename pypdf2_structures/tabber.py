@@ -1,18 +1,46 @@
 _TAB = "\t"
 
 
-def _make_tabs(n):
-	return _TAB * n
+def _make_tabs(num_of_tabs):
+	"""
+	Creates a string consisting of the specified number of tabulations.
+
+	Args:
+		num_of_tabs (int): the wanted number of tabulations
+
+	Returns:
+		str: a string made of the specified number of tabulations or an empty
+			string if num_of_tabs is 0 or less
+	"""
+	return _TAB * num_of_tabs
 
 
 class Tabber:
+	"""
+	This class creates strings consisting of the specified number of
+	tabulations. It stores them so that tabulations series are reused when a
+	number is requested again.
+	"""
 
 	def __init__(self):
+		"""
+		The constructor of Tabber creates an empty record of tabulation series.
+		"""
 		# Keys (int): numbers of tabulations
 		# Values (str): series of tabulations
 		self._tabulations = dict()
 
 	def get_tabs(self, num_of_tabs):
+		"""
+		Provides a string consisting of the specified number of tabulations.
+
+		Args:
+			num_of_tabs (int): the wanted number of tabulations
+
+		Returns:
+			str: a string made of the specified number of tabulations or an empty
+				string if num_of_tabs is 0 or less
+		"""
 		tabs = self._tabulations.get(num_of_tabs)
 
 		if tabs is None:
