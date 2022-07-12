@@ -11,6 +11,7 @@ from PyPDF2.generic import\
 	DictionaryObject
 
 from .ind_obj_solver import IndObjSolver
+from .tabber import Tabber
 
 
 _DLST = (dict, list, set, tuple)
@@ -27,7 +28,6 @@ _NEW_LINE = "\n"
 _OPENING_BRACKET = "["
 _PAGE_REF = "\tReference to a page\n"
 _SPACE = " "
-_TAB = "\t"
 _UNEXPLORED_OBJS = "\t[...]\n"
 
 
@@ -41,10 +41,6 @@ def _get_obj_type(obj, ind_obj_solver):
 
 def _index_between_brackets(index):
 	return _OPENING_BRACKET + str(index) + _CLOSING_BRACKET_COLON_SPACE
-
-
-def _make_tabs(n):
-	return _TAB * n
 
 
 def _next_rec_allowed(item_is_dlst, rec_depth, depth_limit):
@@ -131,9 +127,11 @@ def write_pdf_obj_struct(struct, w_stream, depth_limit=0):
 		struct, w_stream, rec_depth, depth_limit, IndObjSolver())
 
 
+tabber = Tabber()
+
 def _write_pdf_obj_struct_rec(obj_to_write, w_stream, rec_depth,
 		depth_limit, ind_obj_solver):
-	tabs = _make_tabs(rec_depth)
+	tabs = tabber.get_tabs(rec_depth)
 	rec_depth += 1
 
 	if IndObjSolver.is_ind_obj(obj_to_write):
