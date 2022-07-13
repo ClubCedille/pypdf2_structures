@@ -11,7 +11,7 @@ from PyPDF2.generic import\
 	DictionaryObject
 
 from .ind_obj_solver import IndObjSolver
-from .tabber import Tabber
+from .tabulator import Tabulator
 
 
 _DLST = (dict, list, set, tuple)
@@ -127,11 +127,11 @@ def write_pdf_obj_struct(struct, w_stream, depth_limit=0):
 		struct, w_stream, rec_depth, depth_limit, IndObjSolver())
 
 
-tabber = Tabber()
+tabulator = Tabulator()
 
 def _write_pdf_obj_struct_rec(obj_to_write, w_stream, rec_depth,
 		depth_limit, ind_obj_solver):
-	tabs = tabber.get_tabs(rec_depth)
+	tabs = tabulator.get_tabs(rec_depth)
 	rec_depth += 1
 
 	if IndObjSolver.is_ind_obj(obj_to_write):

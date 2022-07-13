@@ -15,7 +15,7 @@ def _make_tabs(num_of_tabs):
 	return _TAB * num_of_tabs
 
 
-class Tabber:
+class Tabulator:
 	"""
 	This class creates strings consisting of a specified number of
 	tabulations. It stores them so that tabulation series are reused when a
@@ -24,7 +24,8 @@ class Tabber:
 
 	def __init__(self):
 		"""
-		The constructor of Tabber creates an empty record of tabulation series.
+		The constructor of Tabulator creates an empty record of tabulation
+		series.
 		"""
 		# Keys (int): numbers of tabulations
 		# Values (str): series of tabulations
