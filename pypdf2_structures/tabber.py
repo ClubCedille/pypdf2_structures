@@ -17,8 +17,8 @@ def _make_tabs(num_of_tabs):
 
 class Tabber:
 	"""
-	This class creates strings consisting of the specified number of
-	tabulations. It stores them so that tabulations series are reused when a
+	This class creates strings consisting of a specified number of
+	tabulations. It stores them so that tabulation series are reused when a
 	number is requested again.
 	"""
 
